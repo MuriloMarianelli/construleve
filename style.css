@@ -1,0 +1,1514 @@
+/* Construleve — estilo da página
+   Cores: azul-marinho, off-white e dourado-areia (destaque). */
+
+:root {
+  --marinho: #1B2A4A;
+  --offwhite: #F7F7F5;
+  --branco: #FFFFFF;
+  --ouro: #C8A15A;
+  --texto-suave: #4A5568;
+  --linha: #E3E4E0;
+  --laranja: #F07A1C; /* só na seção Como chegar: botão do Maps e ícones */
+  --cinza-cartao: #F2F2F0; /* fundo dos cartões de produto e categoria */
+
+  --raio-cartao: 12px;
+  --raio-botao: 0; /* todos os botões com cantos retos */
+  --sombra: 0 1px 2px rgba(27, 42, 74, 0.04), 0 8px 24px rgba(27, 42, 74, 0.06);
+
+  --fonte: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--marinho);
+  background: var(--offwhite);
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+h1, h2, h3 {
+  margin: 0 0 0.5em;
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2.25rem, 7vw, 4rem); }
+h2 { font-size: clamp(1.875rem, 5vw, 2.75rem); margin-bottom: 1.5rem; }
+h3 { font-size: 1.375rem; font-weight: 400; }
+
+p { margin: 0 0 1rem; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--ouro);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Etiqueta pequena acima dos títulos */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.etiqueta::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  background: #111; /* filetes pretos nas partes claras do site */
+}
+
+.etiqueta--clara { color: var(--offwhite); }
+
+/* Sobre fundo escuro (banner e Como chegar), o filete preto sumiria: fica branco */
+.etiqueta--clara::before { background: var(--branco); }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.85rem 1.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--raio-botao);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn--pequeno { padding: 0.6rem 1.1rem; font-size: 0.9375rem; }
+
+.btn--marinho { background: var(--marinho); color: var(--branco); }
+.btn--marinho:hover { background: #24375F; }
+
+.btn--ouro { background: var(--ouro); color: var(--marinho); }
+.btn--ouro:hover { background: #D4B272; }
+
+.btn--contorno {
+  border-color: var(--marinho);
+  color: var(--marinho);
+  background: transparent;
+}
+.btn--contorno:hover { background: var(--marinho); color: var(--branco); }
+
+/* ---------- 1. Topo ---------- */
+/* Cabeçalho branco com faixas diagonais azul e laranja nos cantos,
+   logo com telhado e slogan, divisor, menu com listinhas e botão do WhatsApp. */
+:root { --topo-faixa: clamp(26px, 5vw, 92px); } /* largura das faixas diagonais */
+
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid var(--linha);
+  box-shadow: 0 6px 20px -12px rgba(27, 42, 74, 0.25);
+}
+
+/* Faixas diagonais: azul no canto e uma faixa laranja logo depois */
+.topo::before,
+.topo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--topo-faixa);
+  pointer-events: none;
+}
+
+.topo::before {
+  left: 0;
+  background: linear-gradient(120deg,
+    var(--marinho) 0 38%, transparent 38% 46%,
+    var(--laranja) 46% 60%, transparent 60%);
+}
+
+.topo::after {
+  right: 0;
+  background: linear-gradient(300deg,
+    var(--marinho) 0 38%, transparent 38% 46%,
+    var(--laranja) 46% 60%, transparent 60%);
+}
+
+.topo__conteudo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 76px;
+}
+
+/* Abaixo de 1400px, o conteúdo se afasta das bordas para não encostar nas faixas */
+@media (max-width: 1399px) {
+  .topo .topo__conteudo {
+    padding-left: calc(var(--topo-faixa) + 0.75rem);
+    padding-right: calc(var(--topo-faixa) + 0.75rem);
+  }
+}
+
+/* Logo: telhado laranja, nome em azul e slogan com filetes laranja */
+.topo__marca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0;
+  text-decoration: none;
+  color: var(--marinho);
+}
+
+.topo__telhado {
+  width: 4.5rem;
+  height: auto;
+  margin-bottom: -0.55rem; /* o telhado encosta no nome */
+  fill: var(--laranja);
+}
+
+.topo__telhado-linha {
+  fill: none;
+  stroke: var(--laranja);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.topo__nome {
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", "Iowan Old Style", Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+
+.topo__slogan {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.1rem;
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.topo__slogan::before,
+.topo__slogan::after {
+  content: "";
+  width: 1.25rem;
+  height: 1px;
+  background: var(--laranja);
+}
+
+/* Linha vertical entre o logo e o menu */
+.topo__divisor { display: none; }
+
+.topo__menu { display: none; }
+
+/* Botão do WhatsApp com ícone, empurrado para a direita */
+.topo__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.topo__whatsapp svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 420px) {
+  .topo__nome { font-size: 1.375rem; }
+  .topo__telhado { width: 3.6rem; }
+  .topo__slogan { font-size: 0.6875rem; gap: 0.35rem; }
+  .topo__slogan::before, .topo__slogan::after { width: 0.75rem; }
+  .topo__whatsapp { padding: 0.55rem 0.8rem; font-size: 0.875rem; gap: 0.35rem; }
+  .topo__whatsapp svg { width: 18px; height: 18px; }
+}
+
+/* Celulares bem estreitos (até 350px, como o iPhone SE antigo): o botão do WhatsApp
+   mostra só o ícone, para caber ao lado do logo sem a página rolar para o lado */
+@media (max-width: 350px) {
+  .topo__whatsapp { padding: 0.65rem; }
+  .topo__whatsapp svg { width: 22px; height: 22px; }
+  .topo__whatsapp-texto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* Notebooks pequenos (1024 a 1199px): menu um pouco mais compacto para caber tudo numa linha */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .topo .topo__conteudo { gap: 1.25rem; }
+  .topo .topo__menu { gap: 1.25rem; }
+  .topo .topo__item > a { font-size: 0.9375rem; }
+  .topo .topo__whatsapp { padding: 0.75rem 1.1rem; font-size: 0.9375rem; }
+}
+
+@media (min-width: 1024px) {
+  .topo__conteudo { min-height: 96px; gap: 2rem; }
+
+  .topo__divisor {
+    display: block;
+    width: 1px;
+    height: 56px;
+    background: rgba(27, 42, 74, 0.35);
+  }
+
+  .topo__menu {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+  }
+
+  .topo__item { position: relative; }
+
+  .topo__item > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap; /* "Por que nós" e "Como chegar" nunca quebram em duas linhas */
+    text-decoration: none;
+    color: var(--marinho);
+    transition: color 0.2s;
+  }
+
+  .topo__item > a:hover { color: var(--laranja); }
+
+  .topo__seta {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.25s;
+  }
+
+  /* Listinha que abre embaixo de Produtos e Categorias */
+  .topo__sub {
+    position: absolute;
+    top: 100%;
+    left: -1rem;
+    min-width: 230px;
+    padding: 0.6rem 0;
+    background: var(--branco);
+    border-top: 2px solid var(--laranja);
+    box-shadow: 0 18px 40px -12px rgba(27, 42, 74, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  }
+
+  .topo__sub a {
+    display: block;
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    color: var(--marinho);
+    transition: background-color 0.15s, color 0.15s;
+  }
+
+  .topo__sub a:hover { background: var(--offwhite); color: var(--laranja); }
+
+  .topo__item:hover .topo__sub,
+  .topo__item:focus-within .topo__sub {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .topo__item:hover .topo__seta,
+  .topo__item:focus-within .topo__seta { transform: rotate(180deg); }
+
+  .topo__whatsapp { padding: 0.85rem 1.4rem; font-size: 1rem; }
+}
+
+section[id] { scroll-margin-top: 100px; }
+
+/* Ao rolar a página, o cabeçalho vira um vidro azul translúcido com sombra leve,
+   e o nome, o slogan, o menu e o botão ficam brancos. O telhado e as faixas continuam.
+   Feito só com CSS (rolagem como "linha do tempo").
+   Em navegadores sem esse recurso, o cabeçalho continua branco, como no topo da página. */
+@supports (animation-timeline: scroll()) {
+  .topo,
+  .topo__marca,
+  .topo__item > a,
+  .topo__divisor,
+  .topo .btn {
+    animation-duration: 1ms; /* necessário no Firefox; o tempo real vem da rolagem */
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll(root);
+    animation-range: 0 140px;
+  }
+
+  .topo { animation-name: topo-vidro; }
+  .topo__marca,
+  .topo__item > a { animation-name: topo-texto-branco; }
+  .topo__divisor { animation-name: topo-divisor-branco; }
+  .topo .btn { animation-name: topo-botao-branco; }
+}
+
+@keyframes topo-vidro {
+  to {
+    background: rgba(27, 42, 74, 0.72); /* translúcido, mas escuro o bastante para o texto branco sobre partes brancas */
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+  }
+}
+
+@keyframes topo-texto-branco {
+  to { color: #FFFFFF; }
+}
+
+@keyframes topo-divisor-branco {
+  to { background: rgba(255, 255, 255, 0.4); }
+}
+
+@keyframes topo-botao-branco {
+  to { background: #FFFFFF; color: var(--marinho); }
+}
+
+/* ---------- Faixa de condições (texto passando) ---------- */
+.faixa {
+  overflow: hidden;
+  background: var(--offwhite);
+  border-bottom: 1px solid var(--linha);
+}
+
+.faixa__trilho {
+  display: flex;
+  width: max-content;
+  animation: faixa-passar 40s linear infinite;
+}
+
+.faixa:hover .faixa__trilho { animation-play-state: paused; }
+
+.faixa__lista {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.faixa__lista li {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--marinho);
+}
+
+.faixa__lista strong { font-weight: 700; margin-right: 0.35em; }
+
+/* Pontinho dourado separando as frases */
+.faixa__lista li::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin: 0 2.25rem;
+  border-radius: 50%;
+  background: var(--ouro);
+}
+
+@keyframes faixa-passar {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- 2. Banner ---------- */
+.banner {
+  position: relative;
+  overflow: hidden;
+  color: var(--branco);
+}
+
+.banner__fundo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sem camada de cor sobre o vídeo: só uma sombra leve nas letras para ajudar a leitura */
+.banner__conteudo {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.55), 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Botões claros: a mesma sombra no texto e na borda, para destacar do vídeo */
+.banner__conteudo .btn--claro {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.35), inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.banner__conteudo .btn--claro:hover { text-shadow: none; }
+
+.banner__botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn--claro {
+  border-color: rgba(247, 247, 245, 0.7);
+  color: var(--offwhite);
+  background: transparent;
+}
+.btn--claro:hover { background: var(--offwhite); color: var(--marinho); }
+
+.banner__info {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(247, 247, 245, 0.2);
+  max-width: 36rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--offwhite);
+}
+
+.banner__info span {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--branco);
+  opacity: 0.85;
+}
+
+@media (min-width: 560px) {
+  .banner__info { grid-template-columns: 1fr 1fr; }
+}
+
+.banner__conteudo {
+  position: relative;
+  z-index: 1;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.banner h1 { max-width: 14ch; }
+
+.banner__frase {
+  max-width: 36rem;
+  margin-bottom: 2rem;
+  font-size: 1.1875rem;
+  font-weight: 400;
+  color: var(--offwhite);
+}
+
+/* ---------- Seções ---------- */
+.secao { padding: 4.5rem 0; }
+
+.secao--branca { background: var(--branco); }
+
+.secao--marinho { background: var(--marinho); color: var(--branco); }
+
+/* Destaque e Categorias ficam mais próximos: o resto dos produtos vem logo abaixo do tijolo */
+#produtos { padding-bottom: 1.5rem; }
+.secao--divisa { padding-top: 2.5rem; }
+
+/* ---------- 3. Destaques (estilo catálogo) ---------- */
+/* Produto principal (tijolo) em estilo editorial:
+   fundo branco, foto grande à esquerda e texto com bastante respiro à direita */
+.destaque {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.destaque__foto { overflow: hidden; }
+
+.destaque__foto img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.destaque:hover .destaque__foto img { transform: scale(1.03); }
+
+.destaque__texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Linha pequena acima do título */
+.destaque__sobre {
+  margin: 0 0 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #111;
+}
+
+/* Título forte, como no catálogo de referência */
+.destaque__texto h3 {
+  margin: 0 0 2rem;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+/* Frase de apresentação, logo abaixo do título */
+.destaque__frase {
+  max-width: 30rem;
+  margin: -0.75rem 0 2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* Medidas em três colunas, separadas por filetes finos */
+.destaque__medidas {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  margin: 0 0 2.5rem;
+  border-top: 1px solid var(--linha);
+  border-bottom: 1px solid var(--linha);
+}
+
+.destaque__medidas > div {
+  padding: 1rem 1.5rem 1rem 0;
+}
+
+.destaque__medidas > div + div {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--linha);
+}
+
+.destaque__medidas dt {
+  margin-bottom: 0.2rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6B6F76;
+}
+
+/* Celulares estreitos: as três medidas dividem a largura igualmente, com menos espaço entre elas */
+@media (max-width: 420px) {
+  .destaque__medidas { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+  .destaque__medidas > div { padding: 0.9rem 0.6rem 0.9rem 0; }
+  .destaque__medidas > div + div { padding-left: 0.75rem; }
+  .destaque__medidas dt { font-size: 0.625rem; letter-spacing: 0.06em; }
+}
+
+.destaque__texto { min-width: 0; }
+
+.destaque__medidas dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #111;
+}
+
+.destaque__botao {
+  padding: 1rem 2.25rem;
+  background: var(--marinho);
+  color: var(--branco);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.destaque__botao:hover { background: #24375F; }
+
+@media (min-width: 800px) {
+  .destaque {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Texto afastado da foto, centralizado na altura, como na referência */
+  .destaque__texto { padding: 2rem 0 2rem clamp(3rem, 8vw, 7rem); }
+}
+
+/* ---------- 4. Categorias (todos os produtos, menos o tijolo) ---------- */
+/* 8 cartões: 2 por linha no celular, 4 por linha a partir do tablet.
+   Se a última linha ficar incompleta, ela fica centralizada. */
+.categorias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.categorias > li { width: calc((100% - 0.75rem) / 2); }
+
+@media (min-width: 640px) {
+  .categorias { gap: 1.25rem; }
+  .categorias > li { width: calc((100% - 3 * 1.25rem) / 4); }
+}
+
+
+.categoria {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 0 0 1.25rem; /* sem cartão de fundo: a foto ocupa toda a largura */
+  text-align: center;
+  text-decoration: none;
+}
+
+.categoria__foto {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 1.1rem;
+}
+
+.categoria__foto img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.categoria:hover .categoria__foto img { transform: scale(1.05); }
+
+.categoria__nome {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--marinho);
+}
+
+/* Título da seção de categorias em preto */
+#categorias-titulo { color: #111; }
+
+/* Filete preto entre o nome e a descrição */
+.categoria__nome::after {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 1px;
+  margin: 0.6rem auto 0.55rem;
+  background: #111;
+}
+
+/* O que a loja tem em cada categoria */
+.categoria__info {
+  max-width: 22ch;
+  margin-bottom: 1.1rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #2F343B;
+}
+
+.categoria__link {
+  margin-top: auto;
+  padding-bottom: 1px;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--marinho);
+  transition: color 0.2s;
+}
+
+.categoria:hover .categoria__link { color: var(--ouro); }
+
+/* ---------- 5. Por que escolher ---------- */
+/* Fundo escuro com foto da loja, título grande com "leve" em laranja,
+   cartões de vidro com o ícone num círculo com arco laranja.
+   Ao passar o mouse, o cartão "salta" em 3D, fica branco e os ícones ficam azuis. */
+.diferenciais-secao {
+  position: relative;
+  overflow: hidden; overflow: clip; /* clip: corta sem virar "janela de rolagem" (necessário para o efeito ao rolar) */
+  isolation: isolate;
+  background: #121D35;
+}
+
+/* Foto das prateleiras da loja, desfocada */
+.diferenciais-secao::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  z-index: -2;
+  background: url("produto-9.jpeg.jpeg") center / cover no-repeat;
+  filter: blur(6px) saturate(0.7);
+}
+
+/* Véu azul por cima da foto, mais escuro no centro (onde fica o texto) */
+.diferenciais-secao::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(14, 23, 43, 0.95) 0%, rgba(18, 29, 53, 0.86) 55%, rgba(27, 42, 74, 0.8) 100%);
+}
+
+.diferenciais__titulo {
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+/* "POR QUE ESCOLHER A" com filetes laranja dos dois lados */
+.diferenciais__antes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.75rem, 1.6vw, 0.9375rem);
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.diferenciais__antes::before,
+.diferenciais__antes::after {
+  content: "";
+  width: clamp(28px, 6vw, 80px);
+  height: 2px;
+  background: var(--branco);
+}
+
+.diferenciais__marca {
+  display: block;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--branco);
+}
+
+.diferenciais__marca span { color: var(--laranja); }
+
+.diferenciais__subtitulo {
+  max-width: 40rem;
+  margin: 0 auto 3.5rem;
+  font-size: clamp(1.0625rem, 2.2vw, 1.375rem);
+  line-height: 1.45;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.diferenciais__subtitulo strong { font-weight: 700; color: var(--laranja); }
+
+.diferenciais {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.25rem;
+  perspective: 1000px; /* dá profundidade ao efeito 3D */
+}
+
+/* Cartões de vidro, conteúdo centralizado */
+.diferenciais li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 15rem;
+  padding: 2rem 1.25rem 2.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--branco); /* o ícone usa a mesma cor do texto */
+  font-size: 1.1875rem;
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: center;
+  transform-origin: center bottom;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+              box-shadow 0.45s ease,
+              background-color 0.35s ease,
+              border-color 0.35s ease,
+              color 0.35s ease;
+}
+
+/* Tracinho branco na base de cada cartão (fica preto quando o cartão fica branco) */
+.diferenciais li::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  width: 40px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--branco);
+  transform: translateX(-50%);
+  transition: width 0.45s ease, background-color 0.35s ease;
+}
+
+/* Efeito ao passar o mouse: sobe, inclina levemente para trás e ganha sombra */
+.diferenciais li:hover {
+  background: var(--branco);
+  border-color: var(--branco);
+  color: var(--marinho);
+  transform: translateY(-10px) rotateX(6deg);
+  box-shadow: 0 28px 40px -12px rgba(0, 0, 0, 0.45),
+              0 10px 18px -8px rgba(0, 0, 0, 0.3);
+}
+
+.diferenciais li:hover::after { width: 72px; background: #111; }
+
+/* Celular: 2 por linha, e a Garantia ocupa a última linha inteira */
+@media (max-width: 639px) {
+  .diferenciais { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .diferenciais li {
+    min-height: 12rem;
+    padding: 1.5rem 0.75rem 2.25rem;
+    font-size: 1rem;
+  }
+  .diferenciais li:last-child { grid-column: 1 / -1; min-height: 0; }
+}
+
+/* Ícone dentro de um círculo escuro, com um arco laranja no canto superior esquerdo.
+   O traço segue a cor do cartão: branco sobre o azul, azul quando o cartão fica branco. */
+.diferenciais__icone {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1.25rem;
+  padding: 18px;
+  box-sizing: content-box;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  border-top-color: var(--laranja);
+  border-left-color: var(--laranja);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.25));
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.6);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: background 0.35s ease;
+}
+
+.diferenciais li:hover .diferenciais__icone {
+  background: #EEF0F4;
+  box-shadow: none;
+}
+
+@media (max-width: 639px) {
+  .diferenciais__icone { width: 32px; height: 32px; padding: 14px; }
+}
+
+/* O "30" e o "DIAS" dentro do selo de garantia */
+.diferenciais__icone text {
+  fill: currentColor;
+  stroke: none;
+  font-family: var(--fonte);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.diferenciais__icone .diferenciais__icone-mini {
+  font-size: 4px;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- 5b. Vídeo do cimento ---------- */
+/* Estilo editorial (como a referência): fundo branco, vídeo à esquerda e,
+   à direita, título forte com um texto curto, com bastante espaço em branco. */
+.cimento {
+  padding: 4rem 0 4.5rem;
+  background: var(--branco);
+}
+
+.cimento__palco {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cimento__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.cimento__texto h2 {
+  margin: 0 0 1.75rem;
+  font-size: clamp(2.5rem, 7vw, 4.25rem); /* título grande, com presença */
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: #111;
+}
+
+/* Linha pequena dourada acima do título, com filete */
+.cimento__sobre {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.cimento__sobre::before {
+  content: "";
+  width: 40px;
+  height: 2px;
+  background: #111;
+}
+
+/* Texto de apoio maior, com filete preto à esquerda emoldurando */
+.cimento__descricao {
+  max-width: 28rem;
+  margin: 0 0 2.25rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid #111;
+  font-size: clamp(1.125rem, 2vw, 1.3125rem);
+  line-height: 1.55;
+  color: #2F343B;
+}
+
+.cimento__botao {
+  display: inline-block;
+  padding: 1rem 2.25rem;
+  background: var(--marinho);
+  color: var(--branco);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.cimento__botao:hover { background: #24375F; }
+
+@media (min-width: 800px) {
+  .cimento { padding: 6.5rem 0; }
+
+  .cimento__palco {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 0;
+    padding: 0 2rem;
+  }
+
+  .cimento__palco { grid-template-columns: minmax(0, 480px) 1fr; column-gap: clamp(3rem, 7vw, 6rem); }
+
+  .cimento__video { max-width: 480px; }
+
+  /* O texto ocupa todo o lado direito, sem ficar perdido no branco */
+  .cimento__texto { max-width: 36rem; }
+}
+
+/* ---------- 6. Como chegar ---------- */
+/* Fundo azul-marinho escuro com a foto das prateleiras da loja desfocada por trás,
+   cartões de "vidro" com ícones dourados e o mapa em destaque à direita. */
+.chegar-secao {
+  position: relative;
+  overflow: hidden; overflow: clip; /* clip: corta sem virar "janela de rolagem" (necessário para o efeito ao rolar) */
+  isolation: isolate;
+  background: #121D35;
+  color: var(--branco);
+}
+
+/* Foto da loja, desfocada */
+.chegar-secao::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  z-index: -2;
+  background: url("produto-10.jpeg.jpeg") center / cover no-repeat;
+  filter: blur(6px) saturate(0.8);
+}
+
+/* Véu azul por cima da foto, mais escuro à esquerda (onde fica o texto) */
+.chegar-secao::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(100deg, rgba(14, 23, 43, 0.96) 0%, rgba(18, 29, 53, 0.9) 45%, rgba(27, 42, 74, 0.78) 100%),
+    linear-gradient(0deg, rgba(14, 23, 43, 0.6), transparent 40%);
+}
+
+.chegar__etiqueta {
+  letter-spacing: 0.28em;
+  font-weight: 500;
+}
+
+.chegar__titulo {
+  margin-bottom: 0.75rem;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+.chegar__titulo span {
+  font-weight: 700;
+  color: var(--laranja);
+}
+
+.chegar__subtitulo {
+  max-width: 30rem;
+  margin: 0 0 2.5rem;
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.chegar {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Cartões de vidro */
+.chegar__bloco {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+}
+
+/* Círculo escuro com ícone dourado */
+.chegar__icone {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 -6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.chegar__icone svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--laranja);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chegar__info h3 {
+  margin: 0.15rem 0 0.4rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--branco);
+}
+
+.chegar address {
+  margin-bottom: 1.5rem;
+  font-style: normal;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.chegar__rua {
+  display: block;
+  font-size: 1.125rem;
+  color: var(--branco);
+}
+
+.chegar__info p {
+  margin: 0;
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Botão dourado com ícone de mapa e seta */
+.chegar__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.4rem;
+  background: linear-gradient(180deg, #FF8E33, var(--laranja));
+  border-radius: var(--raio-botao);
+  box-shadow: 0 10px 24px -8px rgba(240, 122, 28, 0.6);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--branco);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chegar__botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -8px rgba(240, 122, 28, 0.75);
+}
+
+.chegar__botao svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chegar__seta { margin-left: 0.25rem; }
+
+/* Mapa: cantos arredondados e sombra forte, como um painel */
+.chegar__mapa {
+  overflow: hidden;
+  min-height: 320px;
+  background: #1F2C47; /* cor de espera enquanto o mapa carrega */
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+.chegar__mapa iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 0;
+}
+
+.chegar__botao { white-space: nowrap; }
+
+/* Celular estreito: ícone em cima do texto, para o botão caber numa linha só */
+@media (max-width: 420px) {
+  .chegar__bloco { flex-direction: column; gap: 1rem; padding: 1.5rem 1.25rem; }
+  .chegar__icone { width: 50px; height: 50px; }
+  .chegar__icone svg { width: 24px; height: 24px; }
+}
+
+/* ---------- 7. Rodapé ---------- */
+/* Azul bem escuro, faixa laranja no topo, faixas diagonais nos cantos (como no cabeçalho),
+   logo em branco, três colunas com ícones laranja e uma base com direitos e crédito. */
+.rodape {
+  position: relative;
+  overflow: hidden; overflow: clip; /* clip: corta sem virar "janela de rolagem" (necessário para o efeito ao rolar) */
+  background: #0E172B;
+  border-top: 3px solid var(--laranja);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.rodape::before,
+.rodape::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: var(--topo-faixa);
+  height: 110px;
+  pointer-events: none;
+}
+
+.rodape::before {
+  left: 0;
+  background: linear-gradient(120deg,
+    var(--marinho) 0 38%, transparent 38% 46%,
+    var(--laranja) 46% 60%, transparent 60%);
+}
+
+.rodape::after {
+  right: 0;
+  background: linear-gradient(240deg,
+    var(--marinho) 0 38%, transparent 38% 46%,
+    var(--laranja) 46% 60%, transparent 60%);
+}
+
+.rodape .rodape__grade {
+  display: grid;
+  gap: 2.5rem;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+
+@media (max-width: 1399px) {
+  .rodape .rodape__grade {
+    padding-left: calc(var(--topo-faixa) + 0.75rem);
+    padding-right: calc(var(--topo-faixa) + 0.75rem);
+  }
+}
+
+/* Logo em branco, com o telhado laranja */
+.rodape__marca {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.75rem;
+}
+
+.rodape__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--branco);
+}
+
+.rodape__logo .topo__nome { font-size: 2rem; }
+
+.rodape__botao {
+  display: inline-block;
+  padding: 0.85rem 1.4rem;
+  background: linear-gradient(180deg, #FF8E33, var(--laranja));
+  box-shadow: 0 10px 24px -8px rgba(240, 122, 28, 0.6); /* igual ao botão "Abrir no Google Maps" */
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--branco);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rodape__botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -8px rgba(240, 122, 28, 0.75);
+}
+
+/* Colunas */
+.rodape__titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--branco);
+}
+
+.rodape__titulo::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  background: var(--branco);
+}
+
+.rodape__coluna ul {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.rodape__coluna a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.78);
+  transition: color 0.2s;
+}
+
+.rodape__coluna a:hover { color: var(--laranja); }
+
+/* Linha com ícone laranja + texto */
+.rodape__contato {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.rodape__contato svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.1rem;
+  fill: none;
+  stroke: var(--laranja);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Base com direitos e crédito */
+.rodape__base {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rodape .rodape__base-conteudo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.rodape__base-conteudo p { margin: 0; }
+
+/* Celular: Navegação e Contato lado a lado; o resto ocupa a largura toda */
+@media (min-width: 480px) and (max-width: 899px) {
+  .rodape .rodape__grade { grid-template-columns: 1fr 1fr; }
+  .rodape__marca,
+  .rodape__coluna:last-child { grid-column: 1 / -1; }
+}
+
+@media (min-width: 900px) {
+  .rodape .rodape__grade {
+    grid-template-columns: 1.4fr 0.8fr 1fr 1.3fr;
+    gap: 3rem;
+    padding-top: 5rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ---------- Telas maiores ---------- */
+@media (min-width: 800px) {
+  .container { padding: 0 2rem; }
+
+  .secao { padding: 6.5rem 0; }
+
+  .banner__conteudo { padding-top: 8rem; padding-bottom: 8rem; }
+
+  /* Endereço e horário à esquerda, um embaixo do outro; o mapa à direita, na altura dos dois */
+  .chegar { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+  .chegar__mapa { grid-column: 2; grid-row: 1 / span 2; min-height: 400px; }
+
+}
+
+/* ---------- Efeito ao rolar: os blocos aparecem e somem ---------- */
+/* Cada bloco surge de baixo para cima quando entra na tela e se apaga subindo
+   quando sai pelo topo. Feito só com CSS: a própria rolagem controla a animação
+   (sem JavaScript). Usa "translate" em vez de "transform" para não brigar com o
+   efeito 3D dos cartões de "Por que escolher".
+   - Navegadores sem esse recurso mostram tudo normalmente, sem efeito.
+   - Quem prefere menos movimento no aparelho também vê tudo parado. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    #produtos .etiqueta,
+    #produtos h2,
+    .destaque__foto,
+    .destaque__texto,
+    #categorias .etiqueta,
+    #categorias h2,
+    .categorias > li,
+    .diferenciais__titulo,
+    .diferenciais__subtitulo,
+    .diferenciais > li,
+    .cimento__video,
+    .cimento__texto,
+    .chegar__etiqueta,
+    .chegar__titulo,
+    .chegar__subtitulo,
+    .chegar > *,
+    .rodape__grade > * {
+      animation: surgir-e-sumir linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    /* Elementos lado a lado entram um pouquinho depois do vizinho (efeito cascata) */
+    .categorias > li:nth-child(4n+2),
+    .diferenciais > li:nth-child(2) { animation-range: cover 4% cover 100%; }
+    .categorias > li:nth-child(4n+3),
+    .diferenciais > li:nth-child(3),
+    .destaque__texto,
+    .cimento__texto { animation-range: cover 8% cover 100%; }
+    .categorias > li:nth-child(4n),
+    .diferenciais > li:nth-child(4) { animation-range: cover 12% cover 100%; }
+    .diferenciais > li:nth-child(5) { animation-range: cover 16% cover 100%; }
+
+    /* O rodapé é o fim da página: só aparece (não some) e termina de aparecer
+       assim que entra inteiro na tela, mesmo sem ter mais página para rolar */
+    .rodape__grade > * {
+      animation-name: surgir;
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+/* Efeito mais forte: sobe de mais longe, com um leve zoom, e some mais cedo pelo topo */
+@keyframes surgir-e-sumir {
+  0%        { opacity: 0; translate: 0 110px; scale: 0.9; }
+  28%, 80%  { opacity: 1; translate: 0 0;     scale: 1; }
+  100%      { opacity: 0; translate: 0 -80px; scale: 0.94; }
+}
+
+@keyframes surgir {
+  0%   { opacity: 0; translate: 0 110px; scale: 0.9; }
+  100% { opacity: 1; translate: 0 0;     scale: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .destaque__botao { transition: none; }
+  .categoria__foto img, .destaque__foto img { transition: none; }
+  .categoria:hover .categoria__foto img,
+  .destaque:hover .destaque__foto img { transform: none; }
+
+  /* Cartões de "Por que escolher": mudam de cor, mas sem o movimento 3D */
+  .diferenciais li, .diferenciais li::after { transition: background-color 0.2s, color 0.2s; }
+  .diferenciais li:hover { transform: none; }
+
+  /* Quem prefere menos movimento vê a faixa parada, com as três condições centralizadas */
+  .faixa__trilho { animation: none; width: auto; justify-content: center; }
+  .faixa__lista[aria-hidden="true"],
+  .faixa__lista li:nth-child(n+4) { display: none; }
+  .faixa__lista { flex-wrap: wrap; justify-content: center; }
+  .faixa__lista li:last-child::after { display: none; }
+}
